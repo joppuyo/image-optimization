@@ -26,14 +26,6 @@ module.exports = {
       minimize: true,
       debug: false,
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module, count) {
-        var context = module.context;
-        return context && context.indexOf('node_modules') >= 0;
-      },
-    }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /fi/),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       beautify: false,
@@ -56,31 +48,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['es2015'],
-            plugins: ['lodash'],
           },
-        },
-      },
-      {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              js: {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['es2015'],
-                  plugins: ['lodash'],
-                },
-              },
-            },
-          },
-        },
-      },
-      {
-        test: /\.svg$/,
-        use: {
-          loader: 'raw-loader',
         },
       },
     ],
